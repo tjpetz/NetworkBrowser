@@ -18,7 +18,9 @@ class ServiceDetailViewController: UIViewController, NSNetServiceDelegate {
     @IBOutlet weak var serviceType: UILabel!
     @IBOutlet weak var serviceHostName: UILabel!
     @IBOutlet weak var serviceDomain: UILabel!
+    @IBOutlet weak var serviceTXTRecord: UILabel!
     @IBOutlet weak var serviceDescription: UILabel!
+    @IBOutlet weak var serviceAddresses: UILabel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -30,6 +32,7 @@ class ServiceDetailViewController: UIViewController, NSNetServiceDelegate {
         serviceDomain.text = service?.domain
         serviceHostName.text = "searching..."
         serviceDescription.text = service?.description
+        serviceTXTRecord.text = service?.TXTRecordData()?.description
         
         // To get most of the information about the service we need to resolve it
         service?.delegate = self
@@ -60,6 +63,21 @@ class ServiceDetailViewController: UIViewController, NSNetServiceDelegate {
     func netServiceDidResolveAddress(sender: NSNetService) {
         print("got address - hostname = \(sender.hostName!)")
         serviceHostName.text = sender.hostName!
+        let dict = NSNetService.dictionaryFromTXTRecordData(sender.TXTRecordData()!)
+
+        var txtRec = ""
+        for (name, val) in dict {
+            txtRec += name + "=" + String(data: val, encoding:NSUTF8StringEncoding)! + "\n"
+        }
+
+        serviceTXTRecord.text = txtRec
+        
+        print(sender.addresses?.debugDescription)
+        
+        for i in sender.addresses! {
+            print(i.debugDescription)
+        }
+        serviceAddresses.text = sender.addresses?.debugDescription
     }
     
     func netServiceDidStop(sender: NSNetService) {
