@@ -8,20 +8,19 @@
 
 import UIKit
 
-class ServiceDetailViewController: UIViewController, NSNetServiceDelegate {
+class ServiceDetailViewController: UIViewController, NetServiceDelegate {
 
     // MARK: Properties
     
-    var service: NSNetService? = nil
+    var service: NetService? = nil
     
     @IBOutlet weak var serviceName: UILabel!
     @IBOutlet weak var serviceType: UILabel!
     @IBOutlet weak var serviceHostName: UILabel!
     @IBOutlet weak var serviceDomain: UILabel!
-    @IBOutlet weak var serviceTXTRecord: UILabel!
-    @IBOutlet weak var serviceDescription: UILabel!
-    @IBOutlet weak var serviceAddresses: UILabel!
-
+//    @IBOutlet weak var serviceDescription: UILabel!
+//    @IBOutlet weak var serviceAddresses: UILabel!
+    @IBOutlet weak var serviceTXTRecord: UITextView!
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -31,12 +30,12 @@ class ServiceDetailViewController: UIViewController, NSNetServiceDelegate {
         serviceType.text = service?.type
         serviceDomain.text = service?.domain
         serviceHostName.text = "searching..."
-        serviceDescription.text = service?.description
-        serviceTXTRecord.text = service?.TXTRecordData()?.description
+//        serviceDescription.text = service?.description
+        serviceTXTRecord.text = service?.txtRecordData()?.description
         
         // To get most of the information about the service we need to resolve it
         service?.delegate = self
-        service?.resolveWithTimeout(10.0)
+        service?.resolve(withTimeout: 10.0)
     }
 
     override func didReceiveMemoryWarning() {
@@ -53,38 +52,39 @@ class ServiceDetailViewController: UIViewController, NSNetServiceDelegate {
         // Pass the selected object to the new view controller.
      }
 */
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         // before the view disappears stop any resolvers.
         service!.stop()
     }
 
     // MARK: Delegate callbacks
     
-    func netServiceDidResolveAddress(sender: NSNetService) {
+    func netServiceDidResolveAddress(_ sender: NetService) {
         print("got address - hostname = \(sender.hostName!)")
         serviceHostName.text = sender.hostName!
-        let dict = NSNetService.dictionaryFromTXTRecordData(sender.TXTRecordData()!)
+        let dict = NetService.dictionary(fromTXTRecord: sender.txtRecordData()!)
 
         var txtRec = ""
         for (name, val) in dict {
-            txtRec += name + "=" + String(data: val, encoding:NSUTF8StringEncoding)! + "\n"
+            txtRec += name + "=" + String(data: val, encoding:String.Encoding.utf8)! + "\n"
         }
 
         serviceTXTRecord.text = txtRec
         
         print(sender.addresses?.debugDescription)
         
-        for i in sender.addresses! {
-            print(i.debugDescription)
-        }
-        serviceAddresses.text = sender.addresses?.debugDescription
+//       CFData
+//        for i in sender.addresses! {
+//            print(i.description)
+//        }
+//        serviceAddresses.text = sender.addresses?.debugDescription
     }
     
-    func netServiceDidStop(sender: NSNetService) {
+    func netServiceDidStop(_ sender: NetService) {
         print("got did stop")
     }
     
-    func netService(sender: NSNetService, didNotResolve errorDict: [String : NSNumber]) {
+    func netService(_ sender: NetService, didNotResolve errorDict: [String : NSNumber]) {
         print("did not resolve")
         serviceHostName.text = "ERROR: unable to resolve"
     }

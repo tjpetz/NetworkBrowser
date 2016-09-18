@@ -8,12 +8,12 @@
 
 import UIKit
 
-class BonjourServiceTableViewController: UITableViewController, NSNetServiceBrowserDelegate {
+class BonjourServiceTableViewController: UITableViewController, NetServiceBrowserDelegate {
 
     // MARK: Properties
-    let myBonjourServiceBrowser = NSNetServiceBrowser()  // Bonjour Service Browser
+    let myBonjourServiceBrowser = NetServiceBrowser()  // Bonjour Service Browser
     var foundServices: [String] = []                     // Just a quick place to store the service descriptions we get back.
-    var services: [NSNetService] = []                    // Array to save the services we discover
+    var services: [NetService] = []                    // Array to save the services we discover
     let serviceQuery = "_services._dns-sd._udp."          // Service name to query the network for available services
     var domain: String = ""                             // Domain to search, by default use empty string which implies .local
 
@@ -30,7 +30,7 @@ class BonjourServiceTableViewController: UITableViewController, NSNetServiceBrow
         
         // Look for services.
         print("starting search for available services") //  - \(wellKnownServices[currentServiceIndex])")
-        myBonjourServiceBrowser.searchForServicesOfType(serviceQuery, inDomain: domain)
+        myBonjourServiceBrowser.searchForServices(ofType: serviceQuery, inDomain: domain)
 
     }
 
@@ -41,19 +41,19 @@ class BonjourServiceTableViewController: UITableViewController, NSNetServiceBrow
 
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return foundServices.count
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("BonjourServiceTableViewCell", forIndexPath: indexPath) as! BonjourServiceTableViewCell
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "BonjourServiceTableViewCell", for: indexPath) as! BonjourServiceTableViewCell
 
         // Configure the cell...
-        cell.serviceName.text = services[indexPath.row].name + "." + services[indexPath.row].type
+        cell.serviceName.text = services[(indexPath as NSIndexPath).row].name + "." + services[(indexPath as NSIndexPath).row].type
         
         return cell
     }
@@ -96,53 +96,53 @@ class BonjourServiceTableViewController: UITableViewController, NSNetServiceBrow
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-        let serviceView = segue.destinationViewController as! DiscoveredServicesTableViewController
+        let serviceView = segue.destination as! DiscoveredServicesTableViewController
         
         myBonjourServiceBrowser.stop()      // halt any running searches before moving to the detail
         
         // Get the cell that generated this segue.
         if let selectedCell = sender as? BonjourServiceTableViewCell {
-            let indexPath = tableView.indexPathForCell(selectedCell)!
-            let selectedService = services[indexPath.row]
+            let indexPath = tableView.indexPath(for: selectedCell)!
+            let selectedService = services[(indexPath as NSIndexPath).row]
             serviceView.serviceName = selectedService.name
             serviceView.serviceType = selectedService.type
         }
     }
 
-    override func viewWillDisappear(animated: Bool) {
+    override func viewWillDisappear(_ animated: Bool) {
         // before the view disappears stop any browsers.
         myBonjourServiceBrowser.stop()
     }
 
     // MARK: Delegate callbacks
     
-    func netServiceBrowserWillSearch(browser: NSNetServiceBrowser) {
+    func netServiceBrowserWillSearch(_ browser: NetServiceBrowser) {
         print("Starting to search services")
     }
     
     // Called for each service search
-    func netServiceBrowser(browser: NSNetServiceBrowser, didNotSearch errorDict: [String : NSNumber]) {
+    func netServiceBrowser(_ browser: NetServiceBrowser, didNotSearch errorDict: [String : NSNumber]) {
         print("Did not search for services")
     }
     
     // Called for each service found
-    func netServiceBrowser(browser: NSNetServiceBrowser, didFindService service: NSNetService, moreComing: Bool) {
+    func netServiceBrowser(_ browser: NetServiceBrowser, didFind service: NetService, moreComing: Bool) {
 
-        let newIndexPath = NSIndexPath(forRow: foundServices.count, inSection: 0)
+        let newIndexPath = IndexPath(row: foundServices.count, section: 0)
         
         foundServices += [service.name]
         services += [service]
 
         print("Found service - \(service.description)")
         
-        tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Bottom)
+        tableView.insertRows(at: [newIndexPath], with: .bottom)
         
     }
     
-    func netServiceBrowserDidStopSearch(browser: NSNetServiceBrowser) {
+    func netServiceBrowserDidStopSearch(_ browser: NetServiceBrowser) {
         // The search has stopped for the current search.  If we have more searches to perform then start them.
         print("Got stop")
     }

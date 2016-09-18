@@ -9,10 +9,10 @@
 import Foundation
 import UIKit
 
-class BonjourDomainTableViewController: UITableViewController, NSNetServiceBrowserDelegate {
+class BonjourDomainTableViewController: UITableViewController, NetServiceBrowserDelegate {
 
     // MARK: Properties
-    let myBonjourDomainBrowser = NSNetServiceBrowser()
+    let myBonjourDomainBrowser = NetServiceBrowser()
     var foundDomains: [String] = []                     // An array of the browsable domains this device can reach
     
     override func viewDidLoad() {
@@ -38,21 +38,21 @@ class BonjourDomainTableViewController: UITableViewController, NSNetServiceBrows
 
     // MARK: - Table view data source
 
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
 
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return foundDomains.count
     }
 
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cellIdentifier = "BonjourDomainTableViewCell"
-        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! BonjourDomainTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! BonjourDomainTableViewCell
 
         // Configure the cell...
 
-        cell.domain.text = foundDomains[indexPath.row]
+        cell.domain.text = foundDomains[(indexPath as NSIndexPath).row]
         return cell
     }
 
@@ -94,18 +94,18 @@ class BonjourDomainTableViewController: UITableViewController, NSNetServiceBrows
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
         
-        let searchDetailTableView = segue.destinationViewController as! BonjourServiceTableViewController
+        let searchDetailTableView = segue.destination as! BonjourServiceTableViewController
         
         myBonjourDomainBrowser.stop()   // stop any running searches
         
         // Get the cell that generated this segue.
         if let selectedMealCell = sender as? BonjourDomainTableViewCell {
-            let indexPath = tableView.indexPathForCell(selectedMealCell)!
-            let selectedDomain = foundDomains[indexPath.row]
+            let indexPath = tableView.indexPath(for: selectedMealCell)!
+            let selectedDomain = foundDomains[(indexPath as NSIndexPath).row]
             searchDetailTableView.domain = selectedDomain
         }
     
@@ -114,23 +114,23 @@ class BonjourDomainTableViewController: UITableViewController, NSNetServiceBrows
     // MARK: Delegate callbacks
 
     // Called when we search for browsable domains
-    func netServiceBrowser(browser: NSNetServiceBrowser, didFindDomain domainString: String, moreComing: Bool) {
-        let newIndexPath = NSIndexPath(forRow: foundDomains.count, inSection: 0)
+    func netServiceBrowser(_ browser: NetServiceBrowser, didFindDomain domainString: String, moreComing: Bool) {
+        let newIndexPath = IndexPath(row: foundDomains.count, section: 0)
         foundDomains += [domainString]
 
-        tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Bottom)
+        tableView.insertRows(at: [newIndexPath], with: .bottom)
         
         if !moreComing {
             browser.stop()
         }
     }
     
-    func netServiceBrowserWillSearch(browser: NSNetServiceBrowser) {
+    func netServiceBrowserWillSearch(_ browser: NetServiceBrowser) {
         print("Starting to search domains")
     }
     
     // Called for each service search
-    func netServiceBrowser(browser: NSNetServiceBrowser, didNotSearch errorDict: [String : NSNumber]) {
+    func netServiceBrowser(_ browser: NetServiceBrowser, didNotSearch errorDict: [String : NSNumber]) {
         print("Did not search for domains")
     }
     
