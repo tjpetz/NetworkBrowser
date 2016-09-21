@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0F51E83F1C2C8C72003BAFEC /* BonjourDomainTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F51E83E1C2C8C72003BAFEC /* BonjourDomainTableViewController.swift */; };
-		0F51E88A1C32F8E8003BAFEC /* BonjourDomainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F51E8891C32F8E8003BAFEC /* BonjourDomainTableViewCell.swift */; };
+		0F51E88A1C32F8E8003BAFEC /* DiscoveredServiceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F51E8891C32F8E8003BAFEC /* DiscoveredServiceTableViewCell.swift */; };
 		0F51E88C1C32FB3C003BAFEC /* BonjourServiceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F51E88B1C32FB3C003BAFEC /* BonjourServiceTableViewController.swift */; };
 		0F51E8901C3498BC003BAFEC /* ServiceDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F51E88F1C3498BC003BAFEC /* ServiceDetailViewController.swift */; };
 		0F824B3A1C418CE9008BFAFA /* DiscoveredServicesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F824B391C418CE9008BFAFA /* DiscoveredServicesTableViewController.swift */; };
@@ -41,9 +41,9 @@
 
 /* Begin PBXFileReference section */
 		0F51E83E1C2C8C72003BAFEC /* BonjourDomainTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BonjourDomainTableViewController.swift; sourceTree = "<group>"; };
-		0F51E8891C32F8E8003BAFEC /* BonjourDomainTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BonjourDomainTableViewCell.swift; path = ../BonjourDomainTableViewCell.swift; sourceTree = "<group>"; };
+		0F51E8891C32F8E8003BAFEC /* DiscoveredServiceTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoveredServiceTableViewCell.swift; sourceTree = "<group>"; };
 		0F51E88B1C32FB3C003BAFEC /* BonjourServiceTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BonjourServiceTableViewController.swift; sourceTree = "<group>"; };
-		0F51E88F1C3498BC003BAFEC /* ServiceDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ServiceDetailViewController.swift; path = ../ServiceDetailViewController.swift; sourceTree = "<group>"; };
+		0F51E88F1C3498BC003BAFEC /* ServiceDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceDetailViewController.swift; sourceTree = "<group>"; };
 		0F824B391C418CE9008BFAFA /* DiscoveredServicesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoveredServicesTableViewController.swift; sourceTree = "<group>"; };
 		0F824B3B1C4192B4008BFAFA /* DiscoveredServiceTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoveredServiceTableViewCell.swift; sourceTree = "<group>"; };
 		0FAF68CF1C2C751D00CB4C94 /* Network Browser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Network Browser.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -119,7 +119,7 @@
 				0F824B391C418CE9008BFAFA /* DiscoveredServicesTableViewController.swift */,
 				0FAF69091C2C815E00CB4C94 /* BonjourServiceTableViewCell.swift */,
 				0F51E83E1C2C8C72003BAFEC /* BonjourDomainTableViewController.swift */,
-				0F51E8891C32F8E8003BAFEC /* BonjourDomainTableViewCell.swift */,
+				0F51E8891C32F8E8003BAFEC /* DiscoveredServiceTableViewCell.swift */,
 				0F51E88F1C3498BC003BAFEC /* ServiceDetailViewController.swift */,
 			);
 			path = "Network Browser";
@@ -279,7 +279,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0F51E88A1C32F8E8003BAFEC /* BonjourDomainTableViewCell.swift in Sources */,
+				0F51E88A1C32F8E8003BAFEC /* DiscoveredServiceTableViewCell.swift in Sources */,
 				0F824B3A1C418CE9008BFAFA /* DiscoveredServicesTableViewController.swift in Sources */,
 				0F51E88C1C32FB3C003BAFEC /* BonjourServiceTableViewController.swift in Sources */,
 				0FAF690A1C2C815E00CB4C94 /* BonjourServiceTableViewCell.swift in Sources */,
@@ -372,7 +372,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -413,7 +413,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
