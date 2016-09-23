@@ -144,7 +144,7 @@ class BonjourServiceTableViewController: UITableViewController, NetServiceBrowse
     
     func netServiceBrowserDidStopSearch(_ browser: NetServiceBrowser) {
         // The search has stopped for the current search.  If we have more searches to perform then start them.
-        print("Got stop")
+        print("Got Service stop")
     }
 
 }

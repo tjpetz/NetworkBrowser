@@ -18,7 +18,7 @@ class DiscoveredServicesTableViewController: UITableViewController, NetServiceBr
     var serviceName: String = ""
     var serviceType: String = ""
     var services: [NetService] = []                    // Array to save the services we discover
-    var foundServices: [String] = []                     // array of found service names
+    var foundServices: [String] = []                   // array of found service names
     let myBonjourServiceBrowser = NetServiceBrowser()  // Bonjour Service Browser
    
     override func viewDidLoad() {
@@ -149,7 +149,7 @@ class DiscoveredServicesTableViewController: UITableViewController, NetServiceBr
     
     func netServiceBrowserDidStopSearch(_ browser: NetServiceBrowser) {
         // The search has stopped for the current search.  If we have more searches to perform then start them.
-        print("Got stop")
+        print("Got service browse stop")
     }
     
 

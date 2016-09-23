@@ -56,6 +56,11 @@ class BonjourDomainTableViewController: UITableViewController, NetServiceBrowser
         return cell
     }
 
+    override func viewWillDisappear(_ animated: Bool) {
+        // before the view disappears stop any browsers.
+        myBonjourDomainBrowser.stop()
+    }
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
@@ -120,9 +125,6 @@ class BonjourDomainTableViewController: UITableViewController, NetServiceBrowser
 
         tableView.insertRows(at: [newIndexPath], with: .bottom)
         
-        if !moreComing {
-            browser.stop()
-        }
     }
     
     func netServiceBrowserWillSearch(_ browser: NetServiceBrowser) {
@@ -134,4 +136,7 @@ class BonjourDomainTableViewController: UITableViewController, NetServiceBrowser
         print("Did not search for domains")
     }
     
+    func netServiceBrowserDidStopSearch(_ browser: NetServiceBrowser) {
+        print("Got Domain stop")
+    }
 }
