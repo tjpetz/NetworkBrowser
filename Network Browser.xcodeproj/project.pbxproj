@@ -20,6 +20,7 @@
 		0FAF68EB1C2C751D00CB4C94 /* Network_BrowserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FAF68EA1C2C751D00CB4C94 /* Network_BrowserTests.swift */; };
 		0FAF68F61C2C751D00CB4C94 /* Network_BrowserUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FAF68F51C2C751D00CB4C94 /* Network_BrowserUITests.swift */; };
 		0FAF690A1C2C815E00CB4C94 /* BonjourServiceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FAF69091C2C815E00CB4C94 /* BonjourServiceTableViewCell.swift */; };
+		0FB3B6FE1DC53F29000418EA /* ServiceDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB3B6FD1DC53F29000418EA /* ServiceDetailTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,6 +60,7 @@
 		0FAF68F51C2C751D00CB4C94 /* Network_BrowserUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network_BrowserUITests.swift; sourceTree = "<group>"; };
 		0FAF68F71C2C751D00CB4C94 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0FAF69091C2C815E00CB4C94 /* BonjourServiceTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BonjourServiceTableViewCell.swift; sourceTree = "<group>"; };
+		0FB3B6FD1DC53F29000418EA /* ServiceDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceDetailTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +112,7 @@
 			isa = PBXGroup;
 			children = (
 				0FAF68D61C2C751D00CB4C94 /* Main.storyboard */,
+				0FB3B6FD1DC53F29000418EA /* ServiceDetailTableViewController.swift */,
 				0FAF68DC1C2C751D00CB4C94 /* Assets.xcassets */,
 				0FAF68D91C2C751D00CB4C94 /* Network_Browser.xcdatamodeld */,
 				0FAF68E11C2C751D00CB4C94 /* Info.plist */,
@@ -281,6 +284,7 @@
 			files = (
 				0F824B3A1C418CE9008BFAFA /* DiscoveredServicesTableViewController.swift in Sources */,
 				0F51E88C1C32FB3C003BAFEC /* BonjourServiceTableViewController.swift in Sources */,
+				0FB3B6FE1DC53F29000418EA /* ServiceDetailTableViewController.swift in Sources */,
 				0F29CDD41D93465500EE2359 /* BonjourDomainTableViewCell.swift in Sources */,
 				0FAF690A1C2C815E00CB4C94 /* BonjourServiceTableViewCell.swift in Sources */,
 				0F51E8901C3498BC003BAFEC /* ServiceDetailViewController.swift in Sources */,
