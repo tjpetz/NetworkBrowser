@@ -16,7 +16,7 @@ class ServiceDetailTableViewController: UITableViewController, NetServiceDelegat
     @IBOutlet weak var type: UILabel!
     @IBOutlet weak var hostname: UILabel!
     @IBOutlet weak var domain: UILabel!
-    @IBOutlet weak var txtRecord: UILabel!
+    @IBOutlet weak var txtRecord: UITextView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,7 +29,7 @@ class ServiceDetailTableViewController: UITableViewController, NetServiceDelegat
         
         // To get most of the information about the service we need to resolve it
         service?.delegate = self
-        service?.resolve(withTimeout: 10.0)
+        service?.resolve(withTimeout: 5.0)
 
         // Display the data
         name.text = service?.name
@@ -109,6 +109,13 @@ class ServiceDetailTableViewController: UITableViewController, NetServiceDelegat
     }
     */
 
+    override func viewWillDisappear(_ animated: Bool) {
+        // before the view disappears stop any browsers.
+        print("Stoping service instance resolution")
+        service!.stop()
+    }
+    
+
     // MARK: Delegate callbacks
     
     func netServiceDidResolveAddress(_ sender: NetService) {
@@ -139,6 +146,7 @@ class ServiceDetailTableViewController: UITableViewController, NetServiceDelegat
     func netService(_ sender: NetService, didNotResolve errorDict: [String : NSNumber]) {
         print("did not resolve")
         hostname.text = "ERROR: unable to resolve"
+        txtRecord.text = "Error: unable to resolve"
     }
 
 }

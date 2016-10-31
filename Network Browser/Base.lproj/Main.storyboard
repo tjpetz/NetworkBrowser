@@ -216,13 +216,13 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="wordWrap" numberOfLines="6" baselineAdjustment="alignBaselines" minimumFontSize="9" adjustsLetterSpacingToFitWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Si9-A2-vna">
-                                                    <rect key="frame" x="101" y="9" width="211" height="198"/>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" text="Txt Record" translatesAutoresizingMaskIntoConstraints="NO" id="Bmw-to-iEo">
+                                                    <rect key="frame" x="101" y="11" width="211" height="198"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
+                                                </textView>
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -238,7 +238,7 @@
                         <outlet property="domain" destination="dN3-LS-nsS" id="vOW-9g-brp"/>
                         <outlet property="hostname" destination="Ld0-QW-BPK" id="5kc-IV-wYh"/>
                         <outlet property="name" destination="82X-YG-T1S" id="jp7-dk-siC"/>
-                        <outlet property="txtRecord" destination="Si9-A2-vna" id="zrv-Bs-sKs"/>
+                        <outlet property="txtRecord" destination="Bmw-to-iEo" id="uVT-WO-wuI"/>
                         <outlet property="type" destination="wm6-es-drU" id="nrx-Nq-aci"/>
                     </connections>
                 </tableViewController>

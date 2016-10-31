@@ -116,6 +116,10 @@ class BonjourDomainTableViewController: UITableViewController, NetServiceBrowser
     
     }
 
+    override func viewDidDisappear(_ animated: Bool) {
+        myBonjourDomainBrowser.stop()
+    }
+
     // MARK: Delegate callbacks
 
     // Called when we search for browsable domains
