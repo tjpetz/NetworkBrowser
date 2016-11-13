@@ -30,7 +30,6 @@ class ServiceDetailViewController: UIViewController, NetServiceDelegate {
         serviceType.text = service?.type
         serviceDomain.text = service?.domain
         serviceHostName.text = "searching..."
-//        serviceDescription.text = service?.description
         serviceTXTRecord.text = service?.txtRecordData()?.description
         
         // To get most of the information about the service we need to resolve it

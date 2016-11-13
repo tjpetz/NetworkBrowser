@@ -110,7 +110,7 @@ class DiscoveredServicesTableViewController: UITableViewController, NetServiceBr
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destinationViewController.
         // Pass the selected object to the new view controller.
-        let serviceView = segue.destination as! ServiceDetailTableViewController
+        let serviceView = segue.destination as! ServiceDetailViewController
         
         myBonjourServiceBrowser.stop()      // halt any running searches before moving to the detail
         

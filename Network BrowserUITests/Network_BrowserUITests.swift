@@ -31,6 +31,30 @@ class Network_BrowserUITests: XCTestCase {
     func testExample() {
         // Use recording to get started writing UI tests.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
+        
+        
+        let app = XCUIApplication()
+        let tablesQuery = app.tables
+        tablesQuery.staticTexts["local."].tap()
+        tablesQuery.staticTexts["_touch-able._tcp.local."].tap()
+        tablesQuery.staticTexts["B9BD6730A6B822D9"].tap()
+        
+        let instancesButton = app.navigationBars["Network_Browser.ServiceDetailView"].buttons["Instances"]
+        instancesButton.tap()
+        
+        let servicesButton = app.navigationBars["Instances"].buttons["Services"]
+        servicesButton.tap()
+        tablesQuery.staticTexts["_home-sharing._tcp.local."].tap()
+        tablesQuery.staticTexts["Thomas Petz, Jr.’s Library"].tap()
+        app.otherElements.containing(.navigationBar, identifier:"Network_Browser.ServiceDetailView").children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .textView).element.swipeUp()
+        instancesButton.tap()
+        servicesButton.tap()
+        tablesQuery.staticTexts["_workstation._tcp.local."].tap()
+        tablesQuery.staticTexts["NAS01 [00:1f:33:ea:86:53]"].tap()
+        instancesButton.tap()
+        servicesButton.tap()
+        app.navigationBars["Services"].buttons["Domains"].tap()
+        
     }
     
 }

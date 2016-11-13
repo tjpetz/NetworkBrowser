@@ -244,12 +244,12 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NIi-b3-oYE" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5829" y="514"/>
+            <point key="canvasLocation" x="6263" y="463"/>
         </scene>
-        <!--View Controller-->
+        <!--Service Detail View Controller-->
         <scene sceneID="ylY-c0-ZCr">
             <objects>
-                <viewController id="YKP-Lc-TL7" sceneMemberID="viewController">
+                <viewController id="YKP-Lc-TL7" customClass="ServiceDetailViewController" customModule="Network_Browser" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="8NH-5k-24L"/>
                         <viewControllerLayoutGuide type="bottom" id="FJd-Lz-d6E"/>
@@ -323,19 +323,25 @@
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="mpR-VS-nOQ">
                                 <rect key="frame" x="116" y="246" width="188" height="302"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <connections>
+                        <outlet property="serviceDomain" destination="qcC-zx-23G" id="SdX-1O-xR9"/>
+                        <outlet property="serviceHostName" destination="iwc-es-0vA" id="5UX-uS-hQB"/>
+                        <outlet property="serviceName" destination="8yi-wT-As0" id="Y4k-At-RdL"/>
+                        <outlet property="serviceTXTRecord" destination="mpR-VS-nOQ" id="VxK-B9-pDU"/>
+                        <outlet property="serviceType" destination="kwI-LD-lY6" id="Oc9-B5-mHT"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BmH-Gq-Km5" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5315.625" y="1270.7746478873239"/>
+            <point key="canvasLocation" x="5370" y="579"/>
         </scene>
         <!--Instances-->
         <scene sceneID="SLT-kM-PUZ">
@@ -364,7 +370,7 @@
                                 </tableViewCellContentView>
                                 <connections>
                                     <outlet property="serviceName" destination="AvR-Ii-4XZ" id="tqy-5r-0db"/>
-                                    <segue destination="TdM-ew-Nuf" kind="show" id="5WW-Xd-UC6"/>
+                                    <segue destination="YKP-Lc-TL7" kind="show" id="CYi-VA-hlf"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
