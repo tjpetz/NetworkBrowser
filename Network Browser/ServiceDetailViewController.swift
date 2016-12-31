@@ -21,6 +21,7 @@ class ServiceDetailViewController: UIViewController, NetServiceDelegate {
 //    @IBOutlet weak var serviceDescription: UILabel!
 //    @IBOutlet weak var serviceAddresses: UILabel!
     @IBOutlet weak var serviceTXTRecord: UITextView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -70,7 +71,7 @@ class ServiceDetailViewController: UIViewController, NetServiceDelegate {
 
         serviceTXTRecord.text = txtRec
         
-        print(sender.addresses?.debugDescription)
+        print(sender.addresses?.debugDescription as Any)
         
 //       CFData
 //        for i in sender.addresses! {

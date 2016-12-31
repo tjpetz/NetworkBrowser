@@ -12,10 +12,25 @@ class BonjourServiceTableViewController: UITableViewController, NetServiceBrowse
 
     // MARK: Properties
     let myBonjourServiceBrowser = NetServiceBrowser()  // Bonjour Service Browser
-    var foundServices: [String] = []                     // Just a quick place to store the service descriptions we get back.
     var services: [NetService] = []                    // Array to save the services we discover
     let serviceQuery = "_services._dns-sd._udp."          // Service name to query the network for available services
     var domain: String = ""                             // Domain to search, by default use empty string which implies .local
+
+    @IBAction func refresh(_ sender: UIBarButtonItem) {
+        print("Got request to refresh.")
+        
+        myBonjourServiceBrowser.stop()
+        
+        let firstRow = IndexPath(row: 0, section: 0)
+        // remove all the rows and then start the browser again
+        while (self.tableView!.numberOfRows(inSection: 0) > 0) {
+            services.remove(at: 0)
+            self.tableView.deleteRows(at: [firstRow], with:UITableViewRowAnimation.bottom)
+        }
+        
+        myBonjourServiceBrowser.searchForServices(ofType: serviceQuery, inDomain: domain)
+        
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,14 +61,15 @@ class BonjourServiceTableViewController: UITableViewController, NetServiceBrowse
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return foundServices.count
+        return services.count
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "BonjourServiceTableViewCell", for: indexPath) as! BonjourServiceTableViewCell
 
         // Configure the cell...
-        cell.serviceName.text = services[(indexPath as NSIndexPath).row].name + "." + services[(indexPath as NSIndexPath).row].type
+        cell.serviceName.text = services[indexPath.row].name + "." + services[(indexPath as NSIndexPath).row].type
+        cell.serviceFriendlyName.text = serviceDescriptions[services[indexPath.row].name]?.friendlyName
         
         return cell
     }
@@ -106,7 +122,7 @@ class BonjourServiceTableViewController: UITableViewController, NetServiceBrowse
         // Get the cell that generated this segue.
         if let selectedCell = sender as? BonjourServiceTableViewCell {
             let indexPath = tableView.indexPath(for: selectedCell)!
-            let selectedService = services[(indexPath as NSIndexPath).row]
+            let selectedService = services[indexPath.row]
             serviceView.serviceName = selectedService.name
             serviceView.serviceType = selectedService.type
         }
@@ -120,7 +136,7 @@ class BonjourServiceTableViewController: UITableViewController, NetServiceBrowse
     // MARK: Delegate callbacks
     
     func netServiceBrowserWillSearch(_ browser: NetServiceBrowser) {
-        print("Starting to search services")
+        print("Starting to search services in BonjourServiceTableViewController")
     }
     
     // Called for each service search
@@ -131,12 +147,11 @@ class BonjourServiceTableViewController: UITableViewController, NetServiceBrowse
     // Called for each service found
     func netServiceBrowser(_ browser: NetServiceBrowser, didFind service: NetService, moreComing: Bool) {
 
-        let newIndexPath = IndexPath(row: foundServices.count, section: 0)
+        let newIndexPath = IndexPath(row: services.count, section: 0)
         
-        foundServices += [service.name]
         services += [service]
 
-        print("Found service - \(service.description)")
+        print("Found service Name = \(service.name)\n\tDescription = \(service.description)\n\t Friendly Name = \(serviceDescriptions[service.name]?.friendlyName)")
         
         tableView.insertRows(at: [newIndexPath], with: .bottom)
         
@@ -144,7 +159,7 @@ class BonjourServiceTableViewController: UITableViewController, NetServiceBrowse
     
     func netServiceBrowserDidStopSearch(_ browser: NetServiceBrowser) {
         // The search has stopped for the current search.  If we have more searches to perform then start them.
-        print("Got Service stop")
+        print("Got Service Search stop in BonjourServiceTableViewController")
     }
 
 }

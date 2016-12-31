@@ -17,6 +17,7 @@ class DiscoveredServicesTableViewController: UITableViewController, NetServiceBr
     var domain: String = ""
     var serviceName: String = ""
     var serviceType: String = ""
+    var browseForService: String = ""                  // the name of the service to search for
     var services: [NetService] = []                    // Array to save the services we discover
     var foundServices: [String] = []                   // array of found service names
     let myBonjourServiceBrowser = NetServiceBrowser()  // Bonjour Service Browser
@@ -32,7 +33,7 @@ class DiscoveredServicesTableViewController: UITableViewController, NetServiceBr
      
         // The serviceType we receive includes the domain.  We need to
         // extract the type without the domain name.
-        let browseForService = serviceName + "." + serviceType.substring(to: (serviceType.range(of: ".")?.lowerBound)!)
+        browseForService = serviceName + "." + serviceType.substring(to: (serviceType.range(of: ".")?.lowerBound)!)
         
         print("Search for service - \(browseForService)")
         myBonjourServiceBrowser.delegate = self
@@ -40,6 +41,10 @@ class DiscoveredServicesTableViewController: UITableViewController, NetServiceBr
         
     }
 
+//    override func viewDidAppear(_ animated: Bool) {
+//        myBonjourServiceBrowser.searchForServices(ofType: browseForService, inDomain: domain)
+//    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -125,12 +130,12 @@ class DiscoveredServicesTableViewController: UITableViewController, NetServiceBr
     // MARK: Delegate callbacks
     
     func netServiceBrowserWillSearch(_ browser: NetServiceBrowser) {
-        print("Starting to search services")
+        print("Starting to search services in DiscoveredServicesTableViewControler")
     }
     
     // Called for each service search
     func netServiceBrowser(_ browser: NetServiceBrowser, didNotSearch errorDict: [String : NSNumber]) {
-        print("Did not search for services")
+        print("Did not search for service in DiscoveredServicesTableViewController")
     }
     
     // Called for each service found
@@ -149,7 +154,7 @@ class DiscoveredServicesTableViewController: UITableViewController, NetServiceBr
     
     func netServiceBrowserDidStopSearch(_ browser: NetServiceBrowser) {
         // The search has stopped for the current search.  If we have more searches to perform then start them.
-        print("Got service browse stop")
+        print("Got service browse stop in DiscoveredServicesTableViewController")
     }
     
 

@@ -13,6 +13,7 @@ class BonjourServiceTableViewCell: UITableViewCell {
 
     // MARK: Properties
     @IBOutlet weak var serviceName: UILabel!
+    @IBOutlet weak var serviceFriendlyName: UILabel!
 
     override func awakeFromNib() {
         super.awakeFromNib()

@@ -11,16 +11,17 @@
 		0F29CDD41D93465500EE2359 /* BonjourDomainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F29CDD31D93465500EE2359 /* BonjourDomainTableViewCell.swift */; };
 		0F51E83F1C2C8C72003BAFEC /* BonjourDomainTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F51E83E1C2C8C72003BAFEC /* BonjourDomainTableViewController.swift */; };
 		0F51E88C1C32FB3C003BAFEC /* BonjourServiceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F51E88B1C32FB3C003BAFEC /* BonjourServiceTableViewController.swift */; };
+		0F73D5F71E182E4C00B812C1 /* ServiceDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F73D5F61E182E4C00B812C1 /* ServiceDescription.swift */; };
 		0F824B3A1C418CE9008BFAFA /* DiscoveredServicesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F824B391C418CE9008BFAFA /* DiscoveredServicesTableViewController.swift */; };
 		0FAF68D31C2C751D00CB4C94 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FAF68D21C2C751D00CB4C94 /* AppDelegate.swift */; };
 		0FAF68D81C2C751D00CB4C94 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0FAF68D61C2C751D00CB4C94 /* Main.storyboard */; };
-		0FAF68DB1C2C751D00CB4C94 /* Network_Browser.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0FAF68D91C2C751D00CB4C94 /* Network_Browser.xcdatamodeld */; };
 		0FAF68DD1C2C751D00CB4C94 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 0FAF68DC1C2C751D00CB4C94 /* Assets.xcassets */; };
 		0FAF68EB1C2C751D00CB4C94 /* Network_BrowserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FAF68EA1C2C751D00CB4C94 /* Network_BrowserTests.swift */; };
 		0FAF68F61C2C751D00CB4C94 /* Network_BrowserUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FAF68F51C2C751D00CB4C94 /* Network_BrowserUITests.swift */; };
 		0FAF690A1C2C815E00CB4C94 /* BonjourServiceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FAF69091C2C815E00CB4C94 /* BonjourServiceTableViewCell.swift */; };
 		0FB3B6FE1DC53F29000418EA /* ServiceDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FB3B6FD1DC53F29000418EA /* ServiceDetailTableViewController.swift */; };
 		0FC5620B1DD8EE9500E0F712 /* ServiceDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC5620A1DD8EE9500E0F712 /* ServiceDetailViewController.swift */; };
+		0FC562151DDD225C00E0F712 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0FC562141DDD225C00E0F712 /* Settings.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,11 +46,11 @@
 		0F29CDD31D93465500EE2359 /* BonjourDomainTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BonjourDomainTableViewCell.swift; sourceTree = "<group>"; };
 		0F51E83E1C2C8C72003BAFEC /* BonjourDomainTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BonjourDomainTableViewController.swift; sourceTree = "<group>"; };
 		0F51E88B1C32FB3C003BAFEC /* BonjourServiceTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BonjourServiceTableViewController.swift; sourceTree = "<group>"; };
+		0F73D5F61E182E4C00B812C1 /* ServiceDescription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceDescription.swift; sourceTree = "<group>"; };
 		0F824B391C418CE9008BFAFA /* DiscoveredServicesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoveredServicesTableViewController.swift; sourceTree = "<group>"; };
 		0FAF68CF1C2C751D00CB4C94 /* Network Browser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Network Browser.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0FAF68D21C2C751D00CB4C94 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		0FAF68D71C2C751D00CB4C94 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		0FAF68DA1C2C751D00CB4C94 /* Network_Browser.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Network_Browser.xcdatamodel; sourceTree = "<group>"; };
 		0FAF68DC1C2C751D00CB4C94 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0FAF68E11C2C751D00CB4C94 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0FAF68E61C2C751D00CB4C94 /* Network BrowserTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Network BrowserTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -61,6 +62,7 @@
 		0FAF69091C2C815E00CB4C94 /* BonjourServiceTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BonjourServiceTableViewCell.swift; sourceTree = "<group>"; };
 		0FB3B6FD1DC53F29000418EA /* ServiceDetailTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceDetailTableViewController.swift; sourceTree = "<group>"; };
 		0FC5620A1DD8EE9500E0F712 /* ServiceDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceDetailViewController.swift; sourceTree = "<group>"; };
+		0FC562141DDD225C00E0F712 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,9 +113,9 @@
 		0FAF68D11C2C751D00CB4C94 /* Network Browser */ = {
 			isa = PBXGroup;
 			children = (
+				0FC5620E1DD9152700E0F712 /* Licenses */,
 				0FAF68D61C2C751D00CB4C94 /* Main.storyboard */,
 				0FAF68DC1C2C751D00CB4C94 /* Assets.xcassets */,
-				0FAF68D91C2C751D00CB4C94 /* Network_Browser.xcdatamodeld */,
 				0FAF68E11C2C751D00CB4C94 /* Info.plist */,
 				0FAF68D21C2C751D00CB4C94 /* AppDelegate.swift */,
 				0F51E83E1C2C8C72003BAFEC /* BonjourDomainTableViewController.swift */,
@@ -124,6 +126,8 @@
 				0FAF69091C2C815E00CB4C94 /* BonjourServiceTableViewCell.swift */,
 				0FB3B6FD1DC53F29000418EA /* ServiceDetailTableViewController.swift */,
 				0FC5620A1DD8EE9500E0F712 /* ServiceDetailViewController.swift */,
+				0FC562141DDD225C00E0F712 /* Settings.bundle */,
+				0F73D5F61E182E4C00B812C1 /* ServiceDescription.swift */,
 			);
 			path = "Network Browser";
 			sourceTree = "<group>";
@@ -144,6 +148,13 @@
 				0FAF68F71C2C751D00CB4C94 /* Info.plist */,
 			);
 			path = "Network BrowserUITests";
+			sourceTree = "<group>";
+		};
+		0FC5620E1DD9152700E0F712 /* Licenses */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Licenses;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -257,6 +268,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0FAF68DD1C2C751D00CB4C94 /* Assets.xcassets in Resources */,
+				0FC562151DDD225C00E0F712 /* Settings.bundle in Resources */,
 				0FAF68D81C2C751D00CB4C94 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -286,8 +298,8 @@
 				0F51E88C1C32FB3C003BAFEC /* BonjourServiceTableViewController.swift in Sources */,
 				0FB3B6FE1DC53F29000418EA /* ServiceDetailTableViewController.swift in Sources */,
 				0F29CDD41D93465500EE2359 /* BonjourDomainTableViewCell.swift in Sources */,
+				0F73D5F71E182E4C00B812C1 /* ServiceDescription.swift in Sources */,
 				0FAF690A1C2C815E00CB4C94 /* BonjourServiceTableViewCell.swift in Sources */,
-				0FAF68DB1C2C751D00CB4C94 /* Network_Browser.xcdatamodeld in Sources */,
 				0FAF68D31C2C751D00CB4C94 /* AppDelegate.swift in Sources */,
 				0FC5620B1DD8EE9500E0F712 /* ServiceDetailViewController.swift in Sources */,
 				0F29CDD21D93455200EE2359 /* DiscoveredServiceTableViewCell.swift in Sources */,
@@ -547,19 +559,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCVersionGroup section */
-		0FAF68D91C2C751D00CB4C94 /* Network_Browser.xcdatamodeld */ = {
-			isa = XCVersionGroup;
-			children = (
-				0FAF68DA1C2C751D00CB4C94 /* Network_Browser.xcdatamodel */,
-			);
-			currentVersion = 0FAF68DA1C2C751D00CB4C94 /* Network_Browser.xcdatamodel */;
-			path = Network_Browser.xcdatamodeld;
-			sourceTree = "<group>";
-			versionGroupType = wrapper.xcdatamodel;
-		};
-/* End XCVersionGroup section */
 	};
 	rootObject = 0FAF68C71C2C751D00CB4C94 /* Project object */;
 }
