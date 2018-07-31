@@ -19,7 +19,6 @@ class DiscoveredServicesTableViewController: UITableViewController, NetServiceBr
     var serviceType: String = ""
     var browseForService: String = ""                  // the name of the service to search for
     var services: [NetService] = []                    // Array to save the services we discover
-    var foundServices: [String] = []                   // array of found service names
     let myBonjourServiceBrowser = NetServiceBrowser()  // Bonjour Service Browser
    
     override func viewDidLoad() {
@@ -35,7 +34,7 @@ class DiscoveredServicesTableViewController: UITableViewController, NetServiceBr
         // extract the type without the domain name.
         browseForService = serviceName + "." + serviceType.substring(to: (serviceType.range(of: ".")?.lowerBound)!)
         
-        print("Search for service - \(browseForService)")
+        print("Search for providers of service - \(browseForService)")
         myBonjourServiceBrowser.delegate = self
         myBonjourServiceBrowser.searchForServices(ofType: browseForService, inDomain: domain)
         
@@ -57,14 +56,14 @@ class DiscoveredServicesTableViewController: UITableViewController, NetServiceBr
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return foundServices.count
+        return services.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "DiscoveredServiceTableCell", for: indexPath) as! DiscoveredServiceTableViewCell
         
         // Configure the cell...
-        cell.serviceName.text = services[(indexPath as NSIndexPath).row].name
+        cell.serviceName.text = services[indexPath.row].name
         
         return cell
     }
@@ -122,7 +121,7 @@ class DiscoveredServicesTableViewController: UITableViewController, NetServiceBr
         // Get the cell that generated this segue.
         if let selectedCell = sender as? DiscoveredServiceTableViewCell {
             let indexPath = tableView.indexPath(for: selectedCell)!
-            let selectedService = services[(indexPath as NSIndexPath).row]
+            let selectedService = services[indexPath.row]
             serviceView.service = selectedService
         }
     }
@@ -141,12 +140,11 @@ class DiscoveredServicesTableViewController: UITableViewController, NetServiceBr
     // Called for each service found
     func netServiceBrowser(_ browser: NetServiceBrowser, didFind service: NetService, moreComing: Bool) {
         
-        let newIndexPath = IndexPath(row: foundServices.count, section: 0)
+        let newIndexPath = IndexPath(row: services.count, section: 0)
         
-        foundServices += [service.description]
         services += [service]
         
-        print("Found service - \(service.description)")
+        print("Found provider - \(service.name)")
         
         tableView.insertRows(at: [newIndexPath], with: .bottom)
         

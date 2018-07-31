@@ -35,7 +35,7 @@ class ServiceDetailViewController: UIViewController, NetServiceDelegate {
         
         // To get most of the information about the service we need to resolve it
         service?.delegate = self
-        service?.resolve(withTimeout: 10.0)
+        service?.resolve(withTimeout: 20.0)
     }
 
     override func didReceiveMemoryWarning() {
@@ -61,6 +61,7 @@ class ServiceDetailViewController: UIViewController, NetServiceDelegate {
     
     func netServiceDidResolveAddress(_ sender: NetService) {
         print("got address - hostname = \(sender.hostName!)")
+        print("found \((sender.addresses!).count) addresses")
         serviceHostName.text = sender.hostName!
         let dict = NetService.dictionary(fromTXTRecord: sender.txtRecordData()!)
 
@@ -73,13 +74,37 @@ class ServiceDetailViewController: UIViewController, NetServiceDelegate {
         
         print(sender.addresses?.debugDescription as Any)
         
-//       CFData
-//        for i in sender.addresses! {
-//            print(i.description)
-//        }
-//        serviceAddresses.text = sender.addresses?.debugDescription
+        for addr in (sender.addresses)! {
+            // addr is a raw but it represents a sockaddr_in()
+            // make a mutable copy as this will be used in an in/out parameter.
+            var a = addr
+            
+            // Create a buffer large enough to hold the resulting address string
+            var buffer = [CChar](repeating: 0, count: Int(INET6_ADDRSTRLEN))
+            
+            withUnsafePointer(to: &a) {
+                $0.withMemoryRebound(to: sockaddr_in6.self, capacity: 1) {
+                    var ss = $0.pointee.sin6_addr
+                    var len = $0.pointee.sin6_len
+                    var port = $0.pointee.sin6_port
+                    if ($0.pointee.sin6_family == AF_INET) {
+                        inet_ntop(AF_INET, &ss, &buffer, socklen_t(Int(INET_ADDRSTRLEN)))
+                    } else {
+                        inet_ntop(AF_INET6, &ss, &buffer, socklen_t(Int(INET_ADDRSTRLEN)))
+                    }
+                }
+            }
+       
+            print(String(cString: buffer))
+            
+            //           inet_ntop(AF_INET, &bob, &buffer, socklen_t(Int(INET_ADDRSTRLEN)))
+            //           let addr_prnt = String(data: buffer, encoding: String.UTF8View)
+            //           print(String(utf8String: buffer)!)
+        }
+        
     }
     
+
     func netServiceDidStop(_ sender: NetService) {
         print("got did stop")
     }
