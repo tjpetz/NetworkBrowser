@@ -60,11 +60,24 @@ class ServiceDetailViewController: UIViewController, NetServiceDelegate {
     // MARK: Delegate callbacks
     
     func netServiceDidResolveAddress(_ sender: NetService) {
+        var hostname = [CChar](repeating: 0, count: Int(NI_MAXHOST))
+        guard let data = sender.addresses?.first else { return }
+        data.withUnsafeBytes { (pointer:UnsafePointer<sockaddr>) -> Void in
+            guard getnameinfo(pointer, socklen_t(data.count), &hostname, socklen_t(hostname.count), nil, 0, NI_NUMERICHOST) == 0 else {
+                return
+            }
+        }
+        let ipAddress = String(cString:hostname)
+        print(ipAddress)
+
+
         print("got address - hostname = \(sender.hostName!)")
         print("found \((sender.addresses!).count) addresses")
         serviceHostName.text = sender.hostName!
         let dict = NetService.dictionary(fromTXTRecord: sender.txtRecordData()!)
 
+        print(sender.addresses)
+        
         var txtRec = ""
         for (name, val) in dict {
             txtRec += name + "=" + String(data: val, encoding:String.Encoding.utf8)! + "\n"
@@ -72,32 +85,33 @@ class ServiceDetailViewController: UIViewController, NetServiceDelegate {
 
         serviceTXTRecord.text = txtRec
         
-        print(sender.addresses?.debugDescription as Any)
-        
         for addr in (sender.addresses)! {
             // addr is a raw but it represents a sockaddr_in()
             // make a mutable copy as this will be used in an in/out parameter.
             var a = addr
             
             // Create a buffer large enough to hold the resulting address string
-            var buffer = [CChar](repeating: 0, count: Int(INET6_ADDRSTRLEN))
+            var buffer = [CChar](repeating: 0, count: Int(INET_ADDRSTRLEN))
             
             withUnsafePointer(to: &a) {
-                $0.withMemoryRebound(to: sockaddr_in6.self, capacity: 1) {
-                    var ss = $0.pointee.sin6_addr
-                    var len = $0.pointee.sin6_len
-                    var port = $0.pointee.sin6_port
-                    if ($0.pointee.sin6_family == AF_INET) {
-                        inet_ntop(AF_INET, &ss, &buffer, socklen_t(Int(INET_ADDRSTRLEN)))
-                    } else {
-                        inet_ntop(AF_INET6, &ss, &buffer, socklen_t(Int(INET_ADDRSTRLEN)))
-                    }
+                $0.withMemoryRebound(to: sockaddr.self, capacity: 1) {
+                    print("len = \($0.pointee.sa_len)")
+                    print("af_family = \($0.pointee.sa_family)")
+                }
+            }
+            
+            withUnsafePointer(to: &a) {
+                $0.withMemoryRebound(to: sockaddr_in.self, capacity: 1) {
+                    var ss = $0.pointee.sin_addr
+                    var len = $0.pointee.sin_len
+                    var port = $0.pointee.sin_port
+                    print(port)
+                    inet_ntop(Int32($0.pointee.sin_family), &ss, &buffer, socklen_t(buffer.count))
                 }
             }
        
             print(String(cString: buffer))
-            
-            //           inet_ntop(AF_INET, &bob, &buffer, socklen_t(Int(INET_ADDRSTRLEN)))
+             //           inet_ntop(AF_INET, &bob, &buffer, socklen_t(Int(INET_ADDRSTRLEN)))
             //           let addr_prnt = String(data: buffer, encoding: String.UTF8View)
             //           print(String(utf8String: buffer)!)
         }
