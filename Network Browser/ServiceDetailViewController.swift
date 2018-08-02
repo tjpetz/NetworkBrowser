@@ -18,8 +18,7 @@ class ServiceDetailViewController: UIViewController, NetServiceDelegate {
     @IBOutlet weak var serviceType: UILabel!
     @IBOutlet weak var serviceHostName: UILabel!
     @IBOutlet weak var serviceDomain: UILabel!
-//    @IBOutlet weak var serviceDescription: UILabel!
-//    @IBOutlet weak var serviceAddresses: UILabel!
+    @IBOutlet weak var serviceAddresses: UILabel!
     @IBOutlet weak var serviceTXTRecord: UITextView!
     
     override func viewDidLoad() {
@@ -61,13 +60,13 @@ class ServiceDetailViewController: UIViewController, NetServiceDelegate {
     
     func netServiceDidResolveAddress(_ sender: NetService) {
         var addr_values : String = ""
-        
+        var txtRec = ""
+
         // With resolution the host name, TXT record, and addresses are available.
         
         serviceHostName.text = sender.hostName!
  
         let dict = NetService.dictionary(fromTXTRecord: sender.txtRecordData()!)
-        var txtRec = ""
         for (name, val) in dict {
             txtRec += name + "=" + String(data: val, encoding:String.Encoding.utf8)! + "\n"
         }
@@ -97,9 +96,9 @@ class ServiceDetailViewController: UIViewController, NetServiceDelegate {
                     inet_ntop(AF_INET6, &ss, &buffer, socklen_t(buffer.count))
                 }
             }
-            addr_values += "address = \(String(cString:buffer))\n"
+            addr_values += "\(String(cString:buffer))\n"
         }
-        serviceTXTRecord.text = addr_values
+        serviceAddresses.text = addr_values
     }
     
 
