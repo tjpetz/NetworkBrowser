@@ -18,8 +18,7 @@ class ServiceDetailViewController: UIViewController, NetServiceDelegate {
     @IBOutlet weak var serviceType: UILabel!
     @IBOutlet weak var serviceHostName: UILabel!
     @IBOutlet weak var serviceDomain: UILabel!
-//    @IBOutlet weak var serviceDescription: UILabel!
-//    @IBOutlet weak var serviceAddresses: UILabel!
+    @IBOutlet weak var serviceAddresses: UILabel!
     @IBOutlet weak var serviceTXTRecord: UITextView!
     
     override func viewDidLoad() {
@@ -60,48 +59,46 @@ class ServiceDetailViewController: UIViewController, NetServiceDelegate {
     // MARK: Delegate callbacks
     
     func netServiceDidResolveAddress(_ sender: NetService) {
-        print("got address - hostname = \(sender.hostName!)")
-        print("found \((sender.addresses!).count) addresses")
-        serviceHostName.text = sender.hostName!
-        let dict = NetService.dictionary(fromTXTRecord: sender.txtRecordData()!)
-
+        var addr_values : String = ""
         var txtRec = ""
+
+        // With resolution the host name, TXT record, and addresses are available.
+        
+        serviceHostName.text = sender.hostName!
+ 
+        let dict = NetService.dictionary(fromTXTRecord: sender.txtRecordData()!)
         for (name, val) in dict {
             txtRec += name + "=" + String(data: val, encoding:String.Encoding.utf8)! + "\n"
         }
 
         serviceTXTRecord.text = txtRec
         
-        print(sender.addresses?.debugDescription as Any)
-        
         for addr in (sender.addresses)! {
             // addr is a raw but it represents a sockaddr_in()
-            // make a mutable copy as this will be used in an in/out parameter.
-            var a = addr
             
             // Create a buffer large enough to hold the resulting address string
             var buffer = [CChar](repeating: 0, count: Int(INET6_ADDRSTRLEN))
-            
-            withUnsafePointer(to: &a) {
-                $0.withMemoryRebound(to: sockaddr_in6.self, capacity: 1) {
-                    var ss = $0.pointee.sin6_addr
-                    var len = $0.pointee.sin6_len
-                    var port = $0.pointee.sin6_port
-                    if ($0.pointee.sin6_family == AF_INET) {
-                        inet_ntop(AF_INET, &ss, &buffer, socklen_t(Int(INET_ADDRSTRLEN)))
-                    } else {
-                        inet_ntop(AF_INET6, &ss, &buffer, socklen_t(Int(INET_ADDRSTRLEN)))
-                    }
+ 
+            // Look for IPv4 addresses
+            addr.withUnsafeBytes {
+                (p: UnsafePointer<sockaddr_in>) -> Void in
+                if (p.pointee.sin_family == AF_INET) {
+                    var ss = p.pointee.sin_addr
+                    inet_ntop(AF_INET, &ss, &buffer, socklen_t(buffer.count))
                 }
             }
-       
-            print(String(cString: buffer))
-            
-            //           inet_ntop(AF_INET, &bob, &buffer, socklen_t(Int(INET_ADDRSTRLEN)))
-            //           let addr_prnt = String(data: buffer, encoding: String.UTF8View)
-            //           print(String(utf8String: buffer)!)
+
+            // Look for IPv6 addresses
+            addr.withUnsafeBytes {
+                (p: UnsafePointer<sockaddr_in6>) -> Void in
+                if (p.pointee.sin6_family == AF_INET6) {
+                    var ss = p.pointee.sin6_addr
+                    inet_ntop(AF_INET6, &ss, &buffer, socklen_t(buffer.count))
+                }
+            }
+            addr_values += "\(String(cString:buffer))\n"
         }
-        
+        serviceAddresses.text = addr_values
     }
     
 
