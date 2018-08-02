@@ -213,7 +213,7 @@
                         <outlet property="serviceAddresses" destination="fLZ-nA-x2W" id="QMa-CG-L5q"/>
                         <outlet property="serviceDomain" destination="qcC-zx-23G" id="SdX-1O-xR9"/>
                         <outlet property="serviceHostName" destination="iwc-es-0vA" id="5UX-uS-hQB"/>
-                        <outlet property="serviceName" destination="fLZ-nA-x2W" id="0WQ-am-1ME"/>
+                        <outlet property="serviceName" destination="8yi-wT-As0" id="gKw-HM-qx5"/>
                         <outlet property="serviceTXTRecord" destination="mpR-VS-nOQ" id="VxK-B9-pDU"/>
                         <outlet property="serviceType" destination="kwI-LD-lY6" id="Oc9-B5-mHT"/>
                     </connections>

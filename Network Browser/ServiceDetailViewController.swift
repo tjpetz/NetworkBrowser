@@ -34,7 +34,7 @@ class ServiceDetailViewController: UIViewController, NetServiceDelegate {
         
         // To get most of the information about the service we need to resolve it
         service?.delegate = self
-        service?.resolve(withTimeout: 20.0)
+        service?.resolve(withTimeout: 10.0)
     }
 
     override func didReceiveMemoryWarning() {
@@ -74,30 +74,44 @@ class ServiceDetailViewController: UIViewController, NetServiceDelegate {
         serviceTXTRecord.text = txtRec
         
         for addr in (sender.addresses)! {
-            // addr is a raw but it represents a sockaddr_in()
+            // addr is a Data but it is of type sockaddr_in().  To work with the structure
+            // we first access it as the generic sockaddr type to find the address family.
+            // Once we know the address family we can then use the protocol specific
+            // sockaddr_XX.  Note, in our case we're assuming we only get back IPv4 or IPv6
+            // addresses.  It's should be possible but probably not common to get other
+            // address types.
             
-            // Create a buffer large enough to hold the resulting address string
-            var buffer = [CChar](repeating: 0, count: Int(INET6_ADDRSTRLEN))
- 
-            // Look for IPv4 addresses
-            addr.withUnsafeBytes {
-                (p: UnsafePointer<sockaddr_in>) -> Void in
-                if (p.pointee.sin_family == AF_INET) {
-                    var ss = p.pointee.sin_addr
-                    inet_ntop(AF_INET, &ss, &buffer, socklen_t(buffer.count))
-                }
+            // To determine the address family we access the data as a sockaddr.
+            let af_family = addr.withUnsafeBytes {
+                (p: UnsafePointer<sockaddr>) -> Int32 in
+                    return (Int32(p.pointee.sa_family))
             }
-
-            // Look for IPv6 addresses
-            addr.withUnsafeBytes {
-                (p: UnsafePointer<sockaddr_in6>) -> Void in
-                if (p.pointee.sin6_family == AF_INET6) {
-                    var ss = p.pointee.sin6_addr
-                    inet_ntop(AF_INET6, &ss, &buffer, socklen_t(buffer.count))
+            
+            if (af_family == AF_INET) {
+                // Get IPv4 addresses
+                // Create a buffer large enough to hold the resulting address string
+                var buffer = [CChar](repeating: 0, count: Int(INET_ADDRSTRLEN))
+                addr.withUnsafeBytes {
+                    (p: UnsafePointer<sockaddr_in>) -> Void in
+                        var ss = p.pointee.sin_addr
+                        inet_ntop(AF_INET, &ss, &buffer, socklen_t(buffer.count))
                 }
+                addr_values += "\(String(cString:buffer))\n"
+           } else if (af_family == AF_INET6) {
+                // Get IPv6 addresses
+                // Create a buffer large enough to hold the resulting address string
+                var buffer = [CChar](repeating: 0, count: Int(INET6_ADDRSTRLEN))
+                addr.withUnsafeBytes {
+                    (p: UnsafePointer<sockaddr_in6>) -> Void in
+                        var ss = p.pointee.sin6_addr
+                        inet_ntop(AF_INET6, &ss, &buffer, socklen_t(buffer.count))
+                }
+                addr_values += "\(String(cString:buffer))\n"
+            } else {
+                addr_values += "Unknown Address Type\n"
             }
-            addr_values += "\(String(cString:buffer))\n"
         }
+        
         serviceAddresses.text = addr_values
     }
     
