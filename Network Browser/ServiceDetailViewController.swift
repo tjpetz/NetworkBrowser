@@ -30,7 +30,7 @@ class ServiceDetailViewController: UIViewController, NetServiceDelegate {
         serviceType.text = service?.type
         serviceDomain.text = service?.domain
         serviceHostName.text = "searching..."
-        serviceTXTRecord.text = service?.txtRecordData()?.description
+        serviceTXTRecord.text = ""
         
         // To get most of the information about the service we need to resolve it
         service?.delegate = self
@@ -68,7 +68,16 @@ class ServiceDetailViewController: UIViewController, NetServiceDelegate {
  
         let dict = NetService.dictionary(fromTXTRecord: sender.txtRecordData()!)
         for (name, val) in dict {
-            txtRec += name + "=" + String(data: val, encoding:String.Encoding.utf8)! + "\n"
+            // The data in the txtRecord is supposed to be utf8 encoded.  However,
+            // I've seen at least one instance where this was not the case and therefore
+            // the conversion to a string failed.  Creating a String(data:_,_) fails
+            // with an illformed utf8 string.  This technique is from: https://stackoverflow.com/questions/44611598/cleaning-malformed-utf8-strings
+            //
+            var val_buff = val
+            val_buff.append(0)      // stick a null on the end
+            let sVal = val_buff.withUnsafeBytes { (p: UnsafePointer<CChar>) in String(cString: p) }
+            
+            txtRec += name + "=" + sVal + "\n"
         }
 
         serviceTXTRecord.text = txtRec
@@ -87,6 +96,8 @@ class ServiceDetailViewController: UIViewController, NetServiceDelegate {
                     return (Int32(p.pointee.sa_family))
             }
             
+            // Now that we know the address family we can access the data using the
+            // specific sockaddr_XX type to retrieve the address.
             if (af_family == AF_INET) {
                 // Get IPv4 addresses
                 // Create a buffer large enough to hold the resulting address string
