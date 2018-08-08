@@ -151,7 +151,7 @@ class BonjourServiceTableViewController: UITableViewController, NetServiceBrowse
         
         services += [service]
 
-        print("Found service Name = \(service.name)\n\tDescription = \(service.description)\n\t Friendly Name = \(serviceDescriptions[service.name]?.friendlyName)")
+        print("Found service Name = \(service.name)\n\tDescription = \(service.description)\n")
         
         tableView.insertRows(at: [newIndexPath], with: .bottom)
         

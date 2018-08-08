@@ -37,6 +37,7 @@ class Network_BrowserUITests: XCTestCase {
         let tablesQuery = app.tables
         tablesQuery.staticTexts["local."].tap()
         tablesQuery.staticTexts["_touch-able._tcp.local."].tap()
+/*
         tablesQuery.staticTexts["B9BD6730A6B822D9"].tap()
         
         let instancesButton = app.navigationBars["Network_Browser.ServiceDetailView"].buttons["Instances"]
@@ -54,7 +55,7 @@ class Network_BrowserUITests: XCTestCase {
         instancesButton.tap()
         servicesButton.tap()
         app.navigationBars["Services"].buttons["Domains"].tap()
-        
+*/
     }
     
 }
