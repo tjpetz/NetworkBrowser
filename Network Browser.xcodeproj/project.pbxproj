@@ -11,6 +11,8 @@
 		0F29CDD41D93465500EE2359 /* BonjourDomainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F29CDD31D93465500EE2359 /* BonjourDomainTableViewCell.swift */; };
 		0F51E83F1C2C8C72003BAFEC /* BonjourDomainTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F51E83E1C2C8C72003BAFEC /* BonjourDomainTableViewController.swift */; };
 		0F51E88C1C32FB3C003BAFEC /* BonjourServiceTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F51E88B1C32FB3C003BAFEC /* BonjourServiceTableViewController.swift */; };
+		0F610C99211B290300896D3F /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0F610C98211B290300896D3F /* Launch Screen.storyboard */; };
+		0F610C9B211B2C4700896D3F /* ServiceDetailTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F610C9A211B2C4700896D3F /* ServiceDetailTableViewController.swift */; };
 		0F73D5F71E182E4C00B812C1 /* ServiceDescription.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F73D5F61E182E4C00B812C1 /* ServiceDescription.swift */; };
 		0F824B3A1C418CE9008BFAFA /* DiscoveredServicesTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F824B391C418CE9008BFAFA /* DiscoveredServicesTableViewController.swift */; };
 		0FAF68D31C2C751D00CB4C94 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FAF68D21C2C751D00CB4C94 /* AppDelegate.swift */; };
@@ -45,6 +47,8 @@
 		0F29CDD31D93465500EE2359 /* BonjourDomainTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BonjourDomainTableViewCell.swift; sourceTree = "<group>"; };
 		0F51E83E1C2C8C72003BAFEC /* BonjourDomainTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BonjourDomainTableViewController.swift; sourceTree = "<group>"; };
 		0F51E88B1C32FB3C003BAFEC /* BonjourServiceTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BonjourServiceTableViewController.swift; sourceTree = "<group>"; };
+		0F610C98211B290300896D3F /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		0F610C9A211B2C4700896D3F /* ServiceDetailTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceDetailTableViewController.swift; sourceTree = "<group>"; };
 		0F73D5F61E182E4C00B812C1 /* ServiceDescription.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ServiceDescription.swift; sourceTree = "<group>"; };
 		0F824B391C418CE9008BFAFA /* DiscoveredServicesTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoveredServicesTableViewController.swift; sourceTree = "<group>"; };
 		0FAF68CF1C2C751D00CB4C94 /* Network Browser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Network Browser.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -124,6 +128,8 @@
 				0FC5620A1DD8EE9500E0F712 /* ServiceDetailViewController.swift */,
 				0FC562141DDD225C00E0F712 /* Settings.bundle */,
 				0F73D5F61E182E4C00B812C1 /* ServiceDescription.swift */,
+				0F610C98211B290300896D3F /* Launch Screen.storyboard */,
+				0F610C9A211B2C4700896D3F /* ServiceDetailTableViewController.swift */,
 			);
 			path = "Network Browser";
 			sourceTree = "<group>";
@@ -258,6 +264,7 @@
 			files = (
 				0FAF68DD1C2C751D00CB4C94 /* Assets.xcassets in Resources */,
 				0FC562151DDD225C00E0F712 /* Settings.bundle in Resources */,
+				0F610C99211B290300896D3F /* Launch Screen.storyboard in Resources */,
 				0FAF68D81C2C751D00CB4C94 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -285,6 +292,7 @@
 			files = (
 				0F824B3A1C418CE9008BFAFA /* DiscoveredServicesTableViewController.swift in Sources */,
 				0F51E88C1C32FB3C003BAFEC /* BonjourServiceTableViewController.swift in Sources */,
+				0F610C9B211B2C4700896D3F /* ServiceDetailTableViewController.swift in Sources */,
 				0F29CDD41D93465500EE2359 /* BonjourDomainTableViewCell.swift in Sources */,
 				0F73D5F71E182E4C00B812C1 /* ServiceDescription.swift in Sources */,
 				0FAF690A1C2C815E00CB4C94 /* BonjourServiceTableViewCell.swift in Sources */,
