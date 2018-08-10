@@ -50,7 +50,7 @@ class ServiceDetailTableViewController: UITableViewController, NetServiceDelegat
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
+        // return the number of rows for each section
         switch section {
         case 0: return 4
         case 1: return addresses.count
@@ -60,6 +60,16 @@ class ServiceDetailTableViewController: UITableViewController, NetServiceDelegat
         }
     }
 
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        // return the title for each section
+        switch (section) {
+        case 0 : return ""
+        case 1: return "Addresses"
+        case 2: return "TXT Record"
+        default: return ""
+        }
+    }
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 //        let cell = tableView.dequeueReusableCell(withIdentifier: "serviceDetailName", for: indexPath)
 //        var cell : UITableViewCell = UITableViewCell()
@@ -151,6 +161,7 @@ class ServiceDetailTableViewController: UITableViewController, NetServiceDelegat
         // Pass the selected object to the new view controller.
     }
     */
+ 
     override func viewWillDisappear(_ animated: Bool) {
         // before the view disappears stop any resolvers.
         service!.stop()
@@ -232,7 +243,6 @@ class ServiceDetailTableViewController: UITableViewController, NetServiceDelegat
             let newIndexPath = IndexPath(row: addresses.count - 1, section: 1)
             tableView.insertRows(at: [newIndexPath], with: .bottom)
         }
-        self.inv
     }
 
     func netServiceDidStop(_ sender: NetService) {
