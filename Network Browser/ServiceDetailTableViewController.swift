@@ -12,12 +12,12 @@ class ServiceDetailTableViewController: UITableViewController, NetServiceDelegat
 
     var service: NetService? = nil
 
-    @IBOutlet weak var name: UILabel!
-    @IBOutlet weak var type: UILabel!
-    @IBOutlet weak var hostname: UILabel!
-    @IBOutlet weak var domain: UILabel!
-    @IBOutlet weak var addresses: UILabel!
-    @IBOutlet weak var txtRecord: UILabel!
+    var name = ""
+    var type = ""
+    var hostname = "resolving..."
+    var domain = ""
+    var addresses: [String] = []
+    var txtRecords: [String] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,16 +28,15 @@ class ServiceDetailTableViewController: UITableViewController, NetServiceDelegat
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         
-        name.text = service?.name
-        type.text = service?.type
-        hostname.text = service?.hostName
-        domain.text = service?.domain
+        name = (service?.name)!
+        type = (service?.type)!
+        domain = (service?.domain)!
  
         // To get most of the information about the service we need to resolve it
         service?.delegate = self
         service?.resolve(withTimeout: 10.0)
    }
-/*
+
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -46,24 +45,67 @@ class ServiceDetailTableViewController: UITableViewController, NetServiceDelegat
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        // return the number of sections
+        return 3
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        return 0
+        switch section {
+        case 0: return 4
+        case 1: return addresses.count
+        case 2: return txtRecords.count
+        default:
+            return 0
+        }
     }
-*/
-    /*
+
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
-        return cell
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "serviceDetailName", for: indexPath)
+//        var cell : UITableViewCell = UITableViewCell()
+        
+        // Configure the cell, the type varies by the section hence we need to switch on the section
+        switch (indexPath.section) {
+        case 0:
+            switch (indexPath.row) {
+            case 0: do {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "ServiceDetailNameTableViewCell", for: indexPath) as! ServiceDetailNameTableViewCell
+                cell.name.text = name
+                return cell
+                }
+            case 1: do {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "ServiceDetailTypeTableViewCell", for: indexPath) as! ServiceDetailTypeTableViewCell
+                cell.type.text = type
+                return cell
+                }
+            case 2: do {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "ServiceDetailHostNameTableViewCell", for: indexPath) as! ServiceDetailHostNameTableViewCell
+                cell.hostname.text = hostname
+                return cell
+                }
+            case 3: do {
+                let cell = tableView.dequeueReusableCell(withIdentifier: "ServiceDetailDomainTableViewCell", for: indexPath) as! ServiceDetailDomainTableViewCell
+                cell.domain.text = domain
+                return cell
+                }
+            default: break
+            }
+        case 1: do {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ServiceDetailAddressTableViewCell", for: indexPath) as! ServiceDetailAddressTableViewCell
+            cell.address.text = addresses[indexPath.row]
+            return cell
+            }
+        case 2: do {
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ServiceDetailTxtRecordTableViewCell", for: indexPath) as! ServiceDetailTxtRecordTableViewCell
+            cell.txtRecord.text = txtRecords[indexPath.row]
+            return cell
+            }
+        default:
+            break;
+        }
+        
+        return UITableViewCell()
     }
-    */
 
     /*
     // Override to support conditional editing of the table view.
@@ -122,8 +164,9 @@ class ServiceDetailTableViewController: UITableViewController, NetServiceDelegat
         
         // With resolution the host name, TXT record, and addresses are available.
         
-        hostname.text = sender.hostName!
+        hostname = sender.hostName!
         
+        // Break up the TXT Record and create an array of individual txtRecords
         let dict = NetService.dictionary(fromTXTRecord: sender.txtRecordData()!)
         for (name, val) in dict {
             // The data in the txtRecord is supposed to be utf8 encoded.  However,
@@ -135,12 +178,15 @@ class ServiceDetailTableViewController: UITableViewController, NetServiceDelegat
             val_buff.append(0)      // stick a null on the end
             let sVal = val_buff.withUnsafeBytes { (p: UnsafePointer<CChar>) in String(cString: p) }
             
-            txtRec += name + "=" + sVal + "\n"
+            txtRec = name + "=" + sVal
+            txtRecords += [txtRec]
+            
+            // Add a row to the section
+            let newIndexPath = IndexPath(row: txtRecords.count - 1, section: 2)
+            tableView.insertRows(at: [newIndexPath], with: .bottom)
         }
         
-        txtRecord.text = txtRec
-        
-        for addr in (sender.addresses)! {
+       for addr in (sender.addresses)! {
             // addr is a Data but it is of type sockaddr_in().  To work with the structure
             // we first access it as the generic sockaddr type to find the address family.
             // Once we know the address family we can then use the protocol specific
@@ -165,7 +211,7 @@ class ServiceDetailTableViewController: UITableViewController, NetServiceDelegat
                     var ss = p.pointee.sin_addr
                     inet_ntop(AF_INET, &ss, &buffer, socklen_t(buffer.count))
                 }
-                addr_values += "\(String(cString:buffer))\n"
+                addr_values = "\(String(cString:buffer))"
             } else if (af_family == AF_INET6) {
                 // Get IPv6 addresses
                 // Create a buffer large enough to hold the resulting address string
@@ -175,13 +221,18 @@ class ServiceDetailTableViewController: UITableViewController, NetServiceDelegat
                     var ss = p.pointee.sin6_addr
                     inet_ntop(AF_INET6, &ss, &buffer, socklen_t(buffer.count))
                 }
-                addr_values += "\(String(cString:buffer))\n"
+                addr_values = "\(String(cString:buffer))"
             } else {
-                addr_values += "Unknown Address Type\n"
+                addr_values = "Unknown Address Type"
             }
+            
+            addresses += [addr_values]
+
+            // Add a row to the addresses section
+            let newIndexPath = IndexPath(row: addresses.count - 1, section: 1)
+            tableView.insertRows(at: [newIndexPath], with: .bottom)
         }
-        
-        addresses.text = addr_values
+        self.inv
     }
 
     func netServiceDidStop(_ sender: NetService) {
@@ -190,7 +241,7 @@ class ServiceDetailTableViewController: UITableViewController, NetServiceDelegat
     
     func netService(_ sender: NetService, didNotResolve errorDict: [String : NSNumber]) {
         print("did not resolve")
-        hostname.text = "ERROR: unable to resolve"
+        //hostname.text = "ERROR: unable to resolve"
     }
 
 }
