@@ -18,6 +18,7 @@ class ServiceDetailTableViewController: UITableViewController, NetServiceDelegat
     var domain = ""
     var addresses: [String] = []
     var txtRecords: [String] = []
+    var hostnameTableCell: ServiceDetailHostNameTableViewCell?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,8 +72,6 @@ class ServiceDetailTableViewController: UITableViewController, NetServiceDelegat
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: "serviceDetailName", for: indexPath)
-//        var cell : UITableViewCell = UITableViewCell()
         
         // Configure the cell, the type varies by the section hence we need to switch on the section
         switch (indexPath.section) {
@@ -90,6 +89,7 @@ class ServiceDetailTableViewController: UITableViewController, NetServiceDelegat
                 }
             case 2: do {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "ServiceDetailHostNameTableViewCell", for: indexPath) as! ServiceDetailHostNameTableViewCell
+                hostnameTableCell = cell
                 cell.hostname.text = hostname
                 return cell
                 }
@@ -176,6 +176,7 @@ class ServiceDetailTableViewController: UITableViewController, NetServiceDelegat
         // With resolution the host name, TXT record, and addresses are available.
         
         hostname = sender.hostName!
+        hostnameTableCell?.hostname.text = hostname
         
         // Break up the TXT Record and create an array of individual txtRecords
         let dict = NetService.dictionary(fromTXTRecord: sender.txtRecordData()!)
@@ -222,7 +223,7 @@ class ServiceDetailTableViewController: UITableViewController, NetServiceDelegat
                     var ss = p.pointee.sin_addr
                     inet_ntop(AF_INET, &ss, &buffer, socklen_t(buffer.count))
                 }
-                addr_values = "\(String(cString:buffer))"
+                addr_values = String(cString:buffer)
             } else if (af_family == AF_INET6) {
                 // Get IPv6 addresses
                 // Create a buffer large enough to hold the resulting address string
@@ -232,7 +233,7 @@ class ServiceDetailTableViewController: UITableViewController, NetServiceDelegat
                     var ss = p.pointee.sin6_addr
                     inet_ntop(AF_INET6, &ss, &buffer, socklen_t(buffer.count))
                 }
-                addr_values = "\(String(cString:buffer))"
+                addr_values = String(cString:buffer)
             } else {
                 addr_values = "Unknown Address Type"
             }
@@ -243,6 +244,8 @@ class ServiceDetailTableViewController: UITableViewController, NetServiceDelegat
             let newIndexPath = IndexPath(row: addresses.count - 1, section: 1)
             tableView.insertRows(at: [newIndexPath], with: .bottom)
         }
+        
+        tableView.setNeedsDisplay()
     }
 
     func netServiceDidStop(_ sender: NetService) {
