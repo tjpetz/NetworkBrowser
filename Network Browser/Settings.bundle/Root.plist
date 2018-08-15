@@ -10,6 +10,14 @@
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
+			<string>Source</string>
+			<key>FooterText</key>
+			<string>https://github.com/tjpetz/NetworkBrowser</string>
+		</dict>
+		<dict>
+			<key>Type</key>
+			<string>PSGroupSpecifier</string>
+			<key>Title</key>
 			<string>Copyright</string>
 			<key>FooterText</key>
 			<string>Copyright 2018 by Thomas J. Petz, Jr.   All Rights Reserved.</string>
