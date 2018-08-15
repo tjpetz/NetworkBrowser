@@ -41,6 +41,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0F01B28C2124876A0047B3DC /* Release Notes.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "Release Notes.md"; sourceTree = "<group>"; };
 		0F29CDD11D93455200EE2359 /* DiscoveredServiceTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoveredServiceTableViewCell.swift; sourceTree = "<group>"; };
 		0F29CDD31D93465500EE2359 /* BonjourDomainTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BonjourDomainTableViewCell.swift; sourceTree = "<group>"; };
 		0F51E83E1C2C8C72003BAFEC /* BonjourDomainTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BonjourDomainTableViewController.swift; sourceTree = "<group>"; };
@@ -124,6 +125,7 @@
 				0FC5620A1DD8EE9500E0F712 /* ServiceDetailViewController.swift */,
 				0FC562141DDD225C00E0F712 /* Settings.bundle */,
 				0F73D5F61E182E4C00B812C1 /* ServiceDescription.swift */,
+				0F01B28C2124876A0047B3DC /* Release Notes.md */,
 			);
 			path = "Network Browser";
 			sourceTree = "<group>";
