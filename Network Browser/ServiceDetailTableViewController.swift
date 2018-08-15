@@ -89,6 +89,7 @@ class ServiceDetailTableViewController: UITableViewController, NetServiceDelegat
                 }
             case 2: do {
                 let cell = tableView.dequeueReusableCell(withIdentifier: "ServiceDetailHostNameTableViewCell", for: indexPath) as! ServiceDetailHostNameTableViewCell
+                // save a reference to the cell so that we can easily update it once the hostname resolves.
                 hostnameTableCell = cell
                 cell.hostname.text = hostname
                 return cell
