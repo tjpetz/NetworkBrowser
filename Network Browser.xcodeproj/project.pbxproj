@@ -64,7 +64,7 @@
 		0FAF68C61C2C751C00CB4C94 = {
 			isa = PBXGroup;
 			children = (
-				0FAF68D11C2C751D00CB4C94 /* Network Browser */,
+				0FAF68D11C2C751D00CB4C94 /* Src */,
 				0FAF68D01C2C751D00CB4C94 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -77,7 +77,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		0FAF68D11C2C751D00CB4C94 /* Network Browser */ = {
+		0FAF68D11C2C751D00CB4C94 /* Src */ = {
 			isa = PBXGroup;
 			children = (
 				0FAF68D61C2C751D00CB4C94 /* Main.storyboard */,
@@ -100,7 +100,7 @@
 				0F610CA4211CAF8900896D3F /* ServiceDetailDomainTableViewCell.swift */,
 				0F610CAE211DF9F400896D3F /* ServiceDetailAddressTableViewCell.swift */,
 			);
-			path = "Network Browser";
+			path = Src;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
