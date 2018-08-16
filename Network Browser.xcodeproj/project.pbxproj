@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		0F01B292212518D60047B3DC /* Art Work in Resources */ = {isa = PBXBuildFile; fileRef = 0F01B291212518D60047B3DC /* Art Work */; };
+		0F01B2942125E2950047B3DC /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 0F01B2932125E2950047B3DC /* LICENSE */; };
 		0F29CDD21D93455200EE2359 /* DiscoveredServiceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F29CDD11D93455200EE2359 /* DiscoveredServiceTableViewCell.swift */; };
 		0F29CDD41D93465500EE2359 /* BonjourDomainTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F29CDD31D93465500EE2359 /* BonjourDomainTableViewCell.swift */; };
 		0F51E83F1C2C8C72003BAFEC /* BonjourDomainTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F51E83E1C2C8C72003BAFEC /* BonjourDomainTableViewController.swift */; };
@@ -30,6 +31,7 @@
 
 /* Begin PBXFileReference section */
 		0F01B291212518D60047B3DC /* Art Work */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Art Work"; sourceTree = "<group>"; };
+		0F01B2932125E2950047B3DC /* LICENSE */ = {isa = PBXFileReference; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		0F29CDD11D93455200EE2359 /* DiscoveredServiceTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DiscoveredServiceTableViewCell.swift; sourceTree = "<group>"; };
 		0F29CDD31D93465500EE2359 /* BonjourDomainTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BonjourDomainTableViewCell.swift; sourceTree = "<group>"; };
 		0F51E83E1C2C8C72003BAFEC /* BonjourDomainTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BonjourDomainTableViewController.swift; sourceTree = "<group>"; };
@@ -66,6 +68,7 @@
 		0FAF68C61C2C751C00CB4C94 = {
 			isa = PBXGroup;
 			children = (
+				0F01B2932125E2950047B3DC /* LICENSE */,
 				0F01B291212518D60047B3DC /* Art Work */,
 				0FAF68D11C2C751D00CB4C94 /* Src */,
 				0FAF68D01C2C751D00CB4C94 /* Products */,
@@ -170,6 +173,7 @@
 				0FC562151DDD225C00E0F712 /* Settings.bundle in Resources */,
 				0F01B292212518D60047B3DC /* Art Work in Resources */,
 				0FAF68D81C2C751D00CB4C94 /* Main.storyboard in Resources */,
+				0F01B2942125E2950047B3DC /* LICENSE in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
