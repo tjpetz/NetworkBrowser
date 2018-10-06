@@ -35,7 +35,7 @@ class ServiceDetailTableViewController: UITableViewController, NetServiceDelegat
  
         // To get most of the information about the service we need to resolve it
         service?.delegate = self
-        service?.resolve(withTimeout: 10.0)
+        service?.resolve(withTimeout: 2.0)
    }
 
     override func didReceiveMemoryWarning() {

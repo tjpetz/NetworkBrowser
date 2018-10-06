@@ -32,7 +32,6 @@ class DiscoveredServicesTableViewController: UITableViewController, NetServiceBr
      
         // The serviceType we receive includes the domain.  We need to
         // extract the type without the domain name.
-//        browseForService = serviceName + "." + serviceType.substring(to: (serviceType.range(of: ".")?.lowerBound)!)
         browseForService = serviceName + "." + serviceType[...(serviceType.index(of: ".")!)]
         print("Search for providers of service - \(browseForService)")
         myBonjourServiceBrowser.delegate = self
